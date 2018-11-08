@@ -20,9 +20,9 @@ public class WordSearch{
       String returnValue = "";
       for (int i = 0; i <data.length; i++){
         for (int a = 0; a <data[i].length; a++){
-          returnValue = data[i][a] + " " + returnValue;
+          returnValue += data[i][a] + " " ;
         }
-        returnValue = returnValue + "\n";
+        returnValue += "\n";
     }
     return returnValue;
   }
