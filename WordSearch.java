@@ -22,7 +22,7 @@ public class WordSearch{
         for (int a = 0; a <data[i].length; a++){
           returnValue = data[i][a] + " " + returnValue;
         }
-        returnValue = returnValue + "/n";
+        returnValue = returnValue + "\n";
     }
     return returnValue;
   }
