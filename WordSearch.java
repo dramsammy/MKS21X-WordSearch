@@ -18,6 +18,10 @@ public class WordSearch{
       data = new char[rows][cols];
       clear();
         }
+    public WordSearch( int rows, int cols, String fileName){
+      randgen = new Random();
+      seed = randgen.nextInt();     //Started working on constructors
+    }
 
 
     private void clear(){
