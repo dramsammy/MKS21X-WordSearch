@@ -1,14 +1,25 @@
+import java.util.*; //random, scanner, arraylist
+import java.io.*; //file, filenotfoundexception
 public class WordSearch{
     private char[][]data;
+    //the random seed used to produce this WordSearch
+    private int seed;
+
+    //a random Object to unify your random calls
+    private Random randgen;
+
+    //all words from a text file get added to wordsToAdd, indicating that they have not yet been added
+    private ArrayList<String>wordsToAdd;
+
+    //all words that were successfully added get moved into wordsAdded.
+    private ArrayList<String>wordsAdded;
 
     public WordSearch(int rows,int cols){
       data = new char[rows][cols];
-      for (int i = 0; i <data.length; i++){
-        for (int a = 0; a <data[i].length; a++){
-          data[i][a] = '_';
+      clear();
         }
-      }
-    }
+
+
     private void clear(){
       for (int i = 0; i <data.length; i++){
         for (int a = 0; a <data[i].length; a++){
@@ -74,8 +85,15 @@ public class WordSearch{
       }
     public boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
       int length = word.length();
-      for (int i=0;i<length;i++)
+      for (int i=0;i<length;i++){
         if (row + rowIncrement + length >= data[i].length || col + colIncrement + length >= data.length){
           return false;
           }
+        }
+      for (int i=0;i<length;i++) {
+        if (((data[row+i][col + i]!=('_'))) && (data[row+i][col + i]!=(word.charAt(i)))) { // need to fix this part of Add Word -- diagraming it
+          return false;
+        }
+          }
+
     }
