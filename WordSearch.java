@@ -72,5 +72,10 @@ public class WordSearch{
         }
           return true;
       }
-
+    public boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
+      int length = word.length();
+      for (int i=0;i<length;i++)
+        if (row + rowIncrement + length >= data[i].length || col + colIncrement + length >= data.length){
+          return false;
+          }
     }
