@@ -34,11 +34,19 @@ public class WordSearch{
     public String toString(){
       String returnValue = "";
       for (int i = 0; i <data.length; i++){
+        returnValue += '|';
         for (int a = 0; a <data[i].length; a++){
-          returnValue += data[i][a] + " " ;
+          if (a == data[i].length -1){
+            returnValue += data[i][a];
         }
+          else {returnValue += data[i][a] + " ";
+          }
+      }
+        returnValue += '|';
         returnValue += "\n";
     }
+    String words = wordsAdded.toString();
+    returnValue += "Words: " + words + "(Seed:" + Integer.toString(seed) +")";
     return returnValue;
   }
     public boolean addWordHorizontal(String word,int row, int col){
@@ -99,5 +107,6 @@ public class WordSearch{
           return false;
         }
           }
-
+return true;
     }
+  }
