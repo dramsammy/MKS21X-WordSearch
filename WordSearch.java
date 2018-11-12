@@ -97,16 +97,23 @@ public class WordSearch{
       }
     public boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
       int length = word.length();
-      for (int i=0;i<length;i++){
-        if (row + rowIncrement + length >= data[i].length || col + colIncrement + length >= data.length){
-          return false;
+      if (row + (length-1) * rowIncrement  >= data.length || col + (length-1) * colIncrement  >= data.length[0]){
+        return false;
           }
-        }
+      if (rowIncrement ==0 && colIncrement == 0){
+        return false;
+      }
+      if (col + (length + 1) * colIncrement < 0 || row + (length + 1) * rowIncrement < 0) {
+        return false;
+      }
+
       for (int i=0;i<length;i++) {
-        if (((data[row+i][col + i]!=('_'))) && (data[row+i][col + i]!=(word.charAt(i)))) { // need to fix this part of Add Word -- diagraming it
-          return false;
-        }
+          if (((data[row+(i*rowIncrement)][col+(i*colIncrement)]!=('_'))) && (data[row+(i*rowIncrement)][col+(i*colIncrement)]!=(word.charAt(i)))) {
+            return false;
+            }
           }
-return true;
-    }
-  }
+      for (int i=0;i<length);i++) {
+        data[row+(i*rowIncrement)][col+(i*colIncrement)]=word.charAt(i);
+      }
+      return true;
+        }
