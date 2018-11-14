@@ -4,26 +4,29 @@ public class WordSearch{
     private char[][]data;
     //the random seed used to produce this WordSearch
     private int seed;
-
     //a random Object to unify your random calls
     private Random randgen;
-
     //all words from a text file get added to wordsToAdd, indicating that they have not yet been added
     private ArrayList<String>wordsToAdd;
-
     //all words that were successfully added get moved into wordsAdded.
     private ArrayList<String>wordsAdded;
-
-    public WordSearch(int rows,int cols){
-      data = new char[rows][cols];
-      clear();
-        }
-    public WordSearch( int rows, int cols, String fileName){
+    // public WordSearch(int rows,int cols){
+    //
+    //   data = new char[rows][cols];
+    //   clear();
+    //     }
+    public WordSearch( int r, int c, String fileName){
       randgen = new Random();
-      seed = randgen.nextInt();     //Started working on constructors
+      seed = randgen.nextInt() % 10000;     //Started working on constructors
     }
-
-
+    public WordSearch(int r, int c, String fileName, int seed, boolean answer){
+      if (rows == 0 || cols == 0 ){
+        throw new IllegalArgumentException("Rows or Cols are equal to 0- Row: "+rows + " Cols: " + cols);
+      }
+      randgen = new Random(seed);
+      data = new char[r][c];
+      clear();
+    }
     private void clear(){
       for (int i = 0; i <data.length; i++){
         for (int a = 0; a <data[i].length; a++){
@@ -106,7 +109,6 @@ public class WordSearch{
       if (col + (length + 1) * colIncrement < 0 || row + (length + 1) * rowIncrement < 0) {
         return false;
       }
-
       for (int i=0;i<length;i++) {
           if (((data[row+(i*rowIncrement)][col+(i*colIncrement)]!=('_'))) && (data[row+(i*rowIncrement)][col+(i*colIncrement)]!=(word.charAt(i)))) {
             return false;
@@ -118,3 +120,4 @@ public class WordSearch{
       return true;
         }
       }
+      public
