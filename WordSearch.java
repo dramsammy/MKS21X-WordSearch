@@ -1,5 +1,8 @@
 import java.util.*; //random, scanner, arraylist
 import java.io.*; //file, filenotfoundexception
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 public class WordSearch{
     private char[][]data;
     //the random seed used to produce this WordSearch
@@ -20,8 +23,8 @@ public class WordSearch{
       seed = randgen.nextInt() % 10000;     //Started working on constructors
     }
     public WordSearch(int r, int c, String fileName, int seed, boolean answer){
-      if (rows == 0 || cols == 0 ){
-        throw new IllegalArgumentException("Rows or Cols are equal to 0- Row: "+rows + " Cols: " + cols);
+      if (r == 0 || c == 0 ){
+        throw new IllegalArgumentException("Rows or Cols are equal to 0- Row: "+r + " Cols: " + c);
       }
       randgen = new Random(seed);
       data = new char[r][c];
@@ -119,5 +122,23 @@ public class WordSearch{
       }
       return true;
         }
+      public static void main(String[]args){
+          if(args.length > 0){
+            String fileName = args[2];
+          }
+          else{
+            throw new IllegalArgumentException("Did not recieve enough arguments");
+          }
+          WordSearch n = new WordSearch(args[0], args[1], args[2], args[3], args[4]);
+          try{
+            File f = new File(fileName);//can combine
+            Scanner in = new Scanner(f);//into one line
+              while(in.hasNext()){
+              wordsAdded.add(in.nextLine());
+            }
+          }catch(FileNotFoundException e){
+            System.out.println("File not found: " + fileName);
+            System.exit(1);
+          }
       }
-      public
+    }
