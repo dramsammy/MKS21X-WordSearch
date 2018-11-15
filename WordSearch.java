@@ -129,16 +129,24 @@ public class WordSearch{
           else{
             throw new IllegalArgumentException("Did not recieve enough arguments");
           }
-          WordSearch n = new WordSearch(args[0], args[1], args[2], args[3], args[4]);
           try{
-            File f = new File(fileName);//can combine
-            Scanner in = new Scanner(f);//into one line
-              while(in.hasNext()){
-              wordsAdded.add(in.nextLine());
+            File f = new File(fileName);
+            Scanner in = new Scanner(f);
+            while(in.hasNext()){
+            wordsAdded.add(in.nextLine());
             }
           }catch(FileNotFoundException e){
             System.out.println("File not found: " + fileName);
             System.exit(1);
+          }
+          if (args.length == 3){
+            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2]);
+          }
+          else if (args.length == 4){
+            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]));
+          }
+          else if (args.length == 5){
+            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), Boolean.parseBoolean(args[4]));
           }
       }
     }
