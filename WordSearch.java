@@ -123,7 +123,7 @@ public class WordSearch{
       return true;
         }
       public static void main(String[]args){
-          if(args.length > 0){
+          if(args.length > 2){
             String fileName = args[2];
           }
           else{
