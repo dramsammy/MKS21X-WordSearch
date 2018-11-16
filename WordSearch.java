@@ -145,8 +145,14 @@ public class WordSearch{
 
       }
       private void addAllWords(){
-        Random wordChoice = new Random() % wordsToAdd.size();
-        Random column = new Random() %
+        String temp = "";
+        Random wordChoice = new Random(seed) % wordsToAdd.size();
+        Random column = new Random(seed) % column + 1;
+        Random row = new Random(seed) % row + 1;
+        for (int i = 0; i < wordsToAdd.size(): i++){
+          temp = wordsToAdd.get(wordChoice.nextInt());
+          
+        }
       }
       public void addwordsfromFile(String fileName){
         try{
