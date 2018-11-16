@@ -13,6 +13,8 @@ public class WordSearch{
     private ArrayList<String>wordsToAdd;
     //all words that were successfully added get moved into wordsAdded.
     private ArrayList<String>wordsAdded;
+    private int columns;
+    private int rows;
     // public WordSearch(int rows,int cols){
     //
     //   data = new char[rows][cols];
@@ -129,16 +131,6 @@ public class WordSearch{
           else{
             throw new IllegalArgumentException("Did not recieve enough arguments");
           }
-          try{
-            File f = new File(fileName);
-            Scanner in = new Scanner(f);
-            while(in.hasNext()){
-            wordsAdded.add(in.nextLine());
-            }
-          }catch(FileNotFoundException e){
-            System.out.println("File not found: " + fileName);
-            System.exit(1);
-          }
           if (args.length == 3){
             WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2]);
           }
@@ -148,5 +140,24 @@ public class WordSearch{
           else if (args.length == 5){
             WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), Boolean.parseBoolean(args[4]));
           }
+          addwordsfromFile(fileName);
+
+
+      }
+      private void addAllWords(){
+        Random wordChoice = new Random() % wordsToAdd.size();
+        Random column = new Random() %
+      }
+      public void addwordsfromFile(String fileName){
+        try{
+          File f = new File(fileName);
+          Scanner in = new Scanner(f);
+          while(in.hasNext()){
+          wordsAdded.add(in.nextLine());
+          }
+        }catch(FileNotFoundException e){
+          System.out.println("File not found: " + fileName);
+          System.exit(1);
+        }
       }
     }
