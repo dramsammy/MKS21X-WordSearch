@@ -15,14 +15,9 @@ public class WordSearch{
     private ArrayList<String>wordsAdded;
     private int columns;
     private int rows;
-    // public WordSearch(int rows,int cols){
-    //
-    //   data = new char[rows][cols];
-    //   clear();
-    //     }
     public WordSearch(int r, int c, String fileName, int RandomSeed, boolean answer){
       if (r <= 0 || c <= 0 || seed <= 0 ){
-        throw new IllegalArgumentException("Rows or Cols or Seed are less than or equal to 0- Row: "+r + " Cols: " + c);
+        throw new IllegalArgumentException("Rows or Cols or Seed are less than or equal to 0 - Row: "+r + " Cols: " + c + " Seed: " + RandomSeed);
       }
       seed = RandomSeed;
       randgen = new Random(seed);
@@ -31,6 +26,7 @@ public class WordSearch{
       rows = r;
       clear();
       addwordsfromFile(fileName);
+      addAllWords();
     }
     private void clear(){
       for (int i = 0; i <data.length; i++){
@@ -125,6 +121,7 @@ public class WordSearch{
       return true;
         }
       public static void main(String[]args){
+          Random randomSeed = new Random();
           if(args.length > 2){
             String fileName = args[2];
           }
@@ -132,7 +129,7 @@ public class WordSearch{
             throw new IllegalArgumentException("Did not recieve enough arguments");
           }
           if (args.length == 3){
-            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], (int)Math.random()*10000, false);
+            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Math.abs(randomSeed.nextInt()) , false);
             System.out.println(Words);
           }
           else if (args.length == 4){
@@ -155,7 +152,7 @@ public class WordSearch{
         Random increment = new Random(seed);
         int a = 0;
         for (int i = 0; i < wordsToAdd.size(); i++){
-          temp = wordsToAdd.get(wordChoice.nextInt() % wordsToAdd.size());
+          temp = wordsToAdd.get(Math.abs(wordChoice.nextInt() % wordsToAdd.size()));
           wordsToAdd.remove(temp);
           i--;
           while (a < 1000){
