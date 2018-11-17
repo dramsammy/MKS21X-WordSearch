@@ -20,17 +20,15 @@ public class WordSearch{
     //   data = new char[rows][cols];
     //   clear();
     //     }
-    public WordSearch( int r, int c, String fileName){
-      randgen = new Random();
-      seed = randgen.nextInt() % 10000;     //Started working on constructors
-    }
-    public WordSearch(int r, int c, String fileName, int seed, boolean answer){
-      if (r == 0 || c == 0 ){
-        throw new IllegalArgumentException("Rows or Cols are equal to 0- Row: "+r + " Cols: " + c);
+    public WordSearch(int r, int c, String fileName, int RandomSeed, boolean answer) throws FileNotFoundException{
+      if (r <= 0 || c <= 0 || seed <= 0 ){
+        throw new IllegalArgumentException("Rows or Cols or Seed are less than or equal to 0- Row: "+r + " Cols: " + c);
       }
       randgen = new Random(seed);
+      seed = RandomSeed;
       data = new char[r][c];
       clear();
+      addwordsfromFile(fileName);
     }
     private void clear(){
       for (int i = 0; i <data.length; i++){
@@ -132,15 +130,18 @@ public class WordSearch{
             throw new IllegalArgumentException("Did not recieve enough arguments");
           }
           if (args.length == 3){
-            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2]);
+            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], (int)Math.random()*10000, false);
+            System.out.println(Words);
           }
           else if (args.length == 4){
-            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]));
+            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), false);
+            System.out.println(Words);
           }
           else if (args.length == 5){
             WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), Boolean.parseBoolean(args[4]));
+            System.out.println(Words);
           }
-          addwordsfromFile(fileName);
+
 
 
       }
@@ -149,9 +150,9 @@ public class WordSearch{
         Random wordChoice = new Random(seed) % wordsToAdd.size();
         Random column = new Random(seed) % column + 1;
         Random row = new Random(seed) % row + 1;
-        for (int i = 0; i < wordsToAdd.size(): i++){
+        for (int i = 0; i < wordsToAdd.size(); i++){
           temp = wordsToAdd.get(wordChoice.nextInt());
-          
+
         }
       }
       public void addwordsfromFile(String fileName){
