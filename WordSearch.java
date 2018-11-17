@@ -20,13 +20,15 @@ public class WordSearch{
     //   data = new char[rows][cols];
     //   clear();
     //     }
-    public WordSearch(int r, int c, String fileName, int RandomSeed, boolean answer) throws FileNotFoundException{
+    public WordSearch(int r, int c, String fileName, int RandomSeed, boolean answer){
       if (r <= 0 || c <= 0 || seed <= 0 ){
         throw new IllegalArgumentException("Rows or Cols or Seed are less than or equal to 0- Row: "+r + " Cols: " + c);
       }
-      randgen = new Random(seed);
       seed = RandomSeed;
+      randgen = new Random(seed);
       data = new char[r][c];
+      columns = c;
+      rows = r;
       clear();
       addwordsfromFile(fileName);
     }
@@ -147,12 +149,22 @@ public class WordSearch{
       }
       private void addAllWords(){
         String temp = "";
-        Random wordChoice = new Random(seed) % wordsToAdd.size();
-        Random column = new Random(seed) % column + 1;
-        Random row = new Random(seed) % row + 1;
+        Random wordChoice = new Random(seed);
+        Random column = new Random(seed);
+        Random row = new Random(seed);
+        Random increment = new Random(seed);
+        int a = 0;
         for (int i = 0; i < wordsToAdd.size(); i++){
-          temp = wordsToAdd.get(wordChoice.nextInt());
-
+          temp = wordsToAdd.get(wordChoice.nextInt() % wordsToAdd.size());
+          wordsToAdd.remove(temp);
+          i--;
+          while (a < 1000){
+            if(addWord(temp,Math.abs(row.nextInt()%rows), Math.abs(column.nextInt()%columns), Math.abs(increment.nextInt()%2),  Math.abs(increment.nextInt()%2))){
+              a = 1000;
+              wordsAdded.add(temp);
+            }
+            a++;
+          }
         }
       }
       public void addwordsfromFile(String fileName){
