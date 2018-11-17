@@ -10,16 +10,16 @@ public class WordSearch{
     //a random Object to unify your random calls
     private Random randgen;
     //all words from a text file get added to wordsToAdd, indicating that they have not yet been added
-    private ArrayList<String>wordsToAdd;
+    private ArrayList<String>wordsToAdd = new ArrayList<String>();
     //all words that were successfully added get moved into wordsAdded.
-    private ArrayList<String>wordsAdded;
+    private ArrayList<String>wordsAdded = new ArrayList<String>();
     private int columns;
     private int rows;
     public WordSearch(int r, int c, String fileName, int RandomSeed, boolean answer){
+      seed = RandomSeed;
       if (r <= 0 || c <= 0 || seed <= 0 ){
         throw new IllegalArgumentException("Rows or Cols or Seed are less than or equal to 0 - Row: "+r + " Cols: " + c + " Seed: " + RandomSeed);
       }
-      seed = RandomSeed;
       randgen = new Random(seed);
       data = new char[r][c];
       columns = c;
@@ -146,17 +146,13 @@ public class WordSearch{
       }
       private void addAllWords(){
         String temp = "";
-        Random wordChoice = new Random(seed);
-        Random column = new Random(seed);
-        Random row = new Random(seed);
-        Random increment = new Random(seed);
         int a = 0;
         for (int i = 0; i < wordsToAdd.size(); i++){
-          temp = wordsToAdd.get(Math.abs(wordChoice.nextInt() % wordsToAdd.size()));
+          temp = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
           wordsToAdd.remove(temp);
           i--;
           while (a < 1000){
-            if(addWord(temp,Math.abs(row.nextInt()%rows), Math.abs(column.nextInt()%columns), Math.abs(increment.nextInt()%2),  Math.abs(increment.nextInt()%2))){
+            if(addWord(temp,Math.abs(randgen.nextInt()%rows), Math.abs(randgen.nextInt()%columns), Math.abs(randgen.nextInt()%2),  Math.abs(randgen.nextInt()%2))){
               a = 1000;
               wordsAdded.add(temp);
             }
@@ -169,7 +165,7 @@ public class WordSearch{
           File f = new File(fileName);
           Scanner in = new Scanner(f);
           while(in.hasNext()){
-          wordsAdded.add(in.nextLine());
+          wordsToAdd.add(in.nextLine());
           }
         }catch(FileNotFoundException e){
           System.out.println("File not found: " + fileName);
