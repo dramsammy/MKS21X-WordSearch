@@ -154,6 +154,7 @@ public class WordSearch{
               a = 1000;
               wordsAdded.add(temp);
             }
+            a++;
           }
         }
       }
