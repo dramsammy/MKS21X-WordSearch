@@ -149,14 +149,11 @@ public class WordSearch{
         int a = 0;
         for (int i = 0; i < wordsToAdd.size(); i++){
           temp = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
-          wordsToAdd.remove(temp);
-          i--;
-          while (a < 1000){
+          while (a != 1000){
             if(addWord(temp,Math.abs(randgen.nextInt()%rows), Math.abs(randgen.nextInt()%columns), Math.abs(randgen.nextInt()%2),  Math.abs(randgen.nextInt()%2))){
               a = 1000;
               wordsAdded.add(temp);
             }
-            a++;
           }
         }
       }
