@@ -151,7 +151,7 @@ public class WordSearch{
           temp = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
           while (a != 1000){
             if(addWord(temp,Math.abs(randgen.nextInt()%rows), Math.abs(randgen.nextInt()%columns), Math.abs(randgen.nextInt()%2),  Math.abs(randgen.nextInt()%2))){
-              a = 1000;
+              a = 999;
               wordsAdded.add(temp);
             }
             a++;
