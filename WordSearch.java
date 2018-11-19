@@ -15,10 +15,11 @@ public class WordSearch{
     private ArrayList<String>wordsAdded = new ArrayList<String>();
     private int columns;
     private int rows;
-    public WordSearch(int r, int c, String fileName, int RandomSeed, boolean answer){
+    private String instructions = "\nTo use this program, you must have three arguments or more. Argument[0] is the amount of rows that will be in the WordSearch. This value can not be below 0 or equal to 0. Argument[1] is the amount of columns that will be in the WordSearch. This value can not be below 0 or equal to 0. Argument[2] is the .txt file where the WordSearch will pull words from. This file can not be empty. Argument[3] is optional and is the seed of the WordSearch. This is used to recreate an original WordSearch. Argument[4] is also optional and is the answers for the WordSearch. To get the answers, please supply argument[4] with the argument answers, key, answer, answers, or true. Thank You.";
+    public WordSearch(int r, int c, String fileName, int RandomSeed, String answer){
       seed = RandomSeed;
       if (r <= 0 || c <= 0 || seed <= 0 ){
-        throw new IllegalArgumentException("Rows or Cols or Seed are less than or equal to 0 - Row: "+r + " Cols: " + c + " Seed: " + RandomSeed);
+        throw new IllegalArgumentException("\nRows or Cols or Seed are less than or equal to 0 - Row: "+r + " Cols: " + c + " Seed: " + RandomSeed + "\n" + instructions);
       }
       randgen = new Random(seed);
       data = new char[r][c];
@@ -27,7 +28,11 @@ public class WordSearch{
       clear();
       addwordsfromFile(fileName);
       addAllWords();
-      fillIn();
+      if (answer.equals("key")||answer.equals("true")||answer.equals("answer")||answer.equals("answers")){
+      }
+      else{
+        fillIn();
+      }
     }
     private void clear(){
       for (int i = 0; i <data.length; i++){
@@ -130,15 +135,15 @@ public class WordSearch{
             throw new IllegalArgumentException("Did not recieve enough arguments");
           }
           if (args.length == 3){
-            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Math.abs(randomSeed.nextInt()) , false);
+            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Math.abs(randomSeed.nextInt()) , "false");
             System.out.println(Words);
           }
           else if (args.length == 4){
-            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), false);
+            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), "false");
             System.out.println(Words);
           }
           else if (args.length == 5){
-            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), Boolean.parseBoolean(args[4]));
+            WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), (args[4]));
             System.out.println(Words);
           }
 
@@ -165,10 +170,10 @@ public class WordSearch{
           File f = new File(fileName);
           Scanner in = new Scanner(f);
           while(in.hasNext()){
-          wordsToAdd.add((in.nextLine()).toUpperCase());
+            wordsToAdd.add((in.nextLine()).toUpperCase());
           }
         }catch(FileNotFoundException e){
-          System.out.println("File not found: " + fileName);
+          System.out.println("\nFile not found: " + fileName + instructions);
           System.exit(1);
         }
       }
