@@ -107,6 +107,7 @@ public class WordSearch{
     //}
     public boolean addWord(String word,int row, int col, int rowIncrement, int colIncrement){
       int length = word.length();
+
       if (row + (length-1) * rowIncrement  >= data.length || col + (length-1) * colIncrement  >= data[0].length){
         return false;
           }
@@ -127,12 +128,13 @@ public class WordSearch{
       return true;
         }
       public static void main(String[]args){
+        String instruction = "\nTo use this program, you must have three arguments or more. Argument[0] is the amount of rows that will be in the WordSearch. This value can not be below 0 or equal to 0. Argument[1] is the amount of columns that will be in the WordSearch. This value can not be below 0 or equal to 0. Argument[2] is the .txt file where the WordSearch will pull words from. This file can not be empty. Argument[3] is optional and is the seed of the WordSearch. This is used to recreate an original WordSearch. Argument[4] is also optional and is the answers for the WordSearch. To get the answers, please supply argument[4] with the argument answers, key, answer, answers, or true. Thank You.";
           Random randomSeed = new Random();
           if(args.length > 2){
             String fileName = args[2];
           }
           else{
-            throw new IllegalArgumentException("Did not recieve enough arguments");
+            throw new IllegalArgumentException("\nDid not recieve enough arguments" + instruction);
           }
           if (args.length == 3){
             WordSearch Words = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], Math.abs(randomSeed.nextInt()) , "false");
@@ -147,9 +149,11 @@ public class WordSearch{
             System.out.println(Words);
           }
 
+}
 
 
-      }
+
+
       private void addAllWords(){
         int counter = 0;
         String temp = "";
