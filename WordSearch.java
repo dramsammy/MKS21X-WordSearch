@@ -27,6 +27,7 @@ public class WordSearch{
       clear();
       addwordsfromFile(fileName);
       addAllWords();
+      fillIn();
     }
     private void clear(){
       for (int i = 0; i <data.length; i++){
@@ -145,16 +146,17 @@ public class WordSearch{
 
       }
       private void addAllWords(){
+        int counter = 0;
         String temp = "";
         int a = 0;
-        for (int i = 0; i < wordsToAdd.size(); i++){
-          temp = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
-          while (a != 1000){
+        while (!wordsToAdd.isEmpty() && counter < 100){
+          for (int i = 0; i < wordsToAdd.size(); i++){
+            temp = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
             if(addWord(temp,Math.abs(randgen.nextInt()%rows), Math.abs(randgen.nextInt()%columns), Math.abs(randgen.nextInt()%2),  Math.abs(randgen.nextInt()%2))){
-              a = 999;
               wordsAdded.add(temp);
+              wordsToAdd.remove(temp);
             }
-            a++;
+            counter++;
           }
         }
       }
@@ -163,11 +165,22 @@ public class WordSearch{
           File f = new File(fileName);
           Scanner in = new Scanner(f);
           while(in.hasNext()){
-          wordsToAdd.add(in.nextLine());
+          wordsToAdd.add((in.nextLine()).toUpperCase());
           }
         }catch(FileNotFoundException e){
           System.out.println("File not found: " + fileName);
           System.exit(1);
+        }
+      }
+
+      private void fillIn(){
+        String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        for (int i = 0; i < data.length; i++){
+          for (int a = 0; a < data[0].length; a++){
+            if (data[i][a] == '_'){
+              data[i][a] = letters.charAt(Math.abs(randgen.nextInt() % 26));
+            }
+          }
         }
       }
     }
